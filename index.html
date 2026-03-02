@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cumbre Café - Digital Signage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primario: #2C1B12;
+            --color-secundario: #D4A373;
+            --color-fondo: #FAFAF5;
+            --color-texto: #4A4A4A;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-fondo);
+        }
+
+        /* --- Barra Superior --- */
+        header {
+            height: 7vh;
+            background-color: var(--color-primario);
+            color: white;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--color-secundario);
+        }
+
+        /* --- Contenedor Principal Superior (Video y Banner) --- */
+        .top-row {
+            display: flex;
+            height: 65vh; /* Ocupa la mayor parte de la pantalla */
+            width: 100%;
+            gap: 0;
+        }
+
+        .video-container {
+            flex: 1.2;
+            background: #000;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .promo-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .carousel-slide {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.45, 0, 0.55, 1);
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            color: white;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .slide-caption strong {
+            font-size: 1.5rem;
+            color: var(--color-secundario);
+        }
+
+        /* --- Contenedor Inferior (Logos e Info) --- */
+        .bottom-row {
+            height: 28vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            background-color: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .bottom-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Solo la imagen del logo */
+        .brand-logo {
+            max-height: 18vh;
+            width: auto;
+        }
+
+        .qr-section {
+            text-align: center;
+        }
+
+        .menu-qr {
+            max-height: 15vh;
+            width: auto;
+        }
+
+        .info-text {
+            border-left: 2px solid var(--color-secundario);
+            padding-left: 20px;
+        }
+
+        .info-text h2 {
+            font-family: 'Playfair Display';
+            margin: 0;
+            color: var(--color-primario);
+            font-size: 1.3rem;
+        }
+
+        .trip-logo {
+            max-height: 6vh;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="font-family: 'Playfair Display'; font-weight: 700; letter-spacing: 1px;">CUMBRE CAFÉ</div>
+        <div id="reloj">Cargando...</div>
+    </header>
+
+    <main class="top-row">
+        <section class="video-container">
+            <video autoplay muted loop playsinline>
+                <source src="video_prueba.mp4" type="video/mp4">
+            </video>
+        </section>
+
+        <section class="promo-container">
+            <div class="carousel-slide" id="carrusel">
+                <div class="slide">
+                    <img src="promo1.jpg" alt="P1">
+                    <div class="slide-caption"><strong>15% OFF</strong><br>En granos de especialidad seleccionados.</div>
+                </div>
+                <div class="slide">
+                    <img src="promo2.jpg" alt="P2">
+                    <div class="slide-caption"><strong>2x1 MARTES</strong><br>En todas nuestras bebidas frías.</div>
+                </div>
+                <div class="slide">
+                    <img src="promo3.jpg" alt="P3">
+                    <div class="slide-caption"><strong>MEMBRESÍA</strong><br>Recibe café fresco en tu oficina.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bottom-row">
+        <img src="logo.jpg" alt="Cumbre Café Logo" class="brand-logo">
+
+        <div class="bottom-item">
+            <div class="qr-section">
+                <p style="font-size: 0.7rem; font-weight: 700; margin-bottom: 5px;">ESCANEAME <br> MENÚ DIGITAL</p>
+                <img src="qrcumbrecafe.png" class="menu-qr" alt="QR">
+            </div>
+            <img src="Tripadvisor_Logo_RGB_Pine_For Light Background.png" class="trip-logo" alt="Trip">
+        </div>
+
+        <div class="info-text">
+            <h2>Visítanos</h2>
+            <p style="margin: 5px 0; font-size: 0.9rem;">
+                <strong>Ubicación:</strong> Calle 93 #12-45, Bogotá<br>
+                <strong>Horario:</strong> Lunes a Domingo: 8am - 8pm<br>
+                <strong>Instagram:</strong> @cumbrecafe
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Reloj
+        function actualizarReloj() {
+            const ahora = new Date();
+            const opciones = { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
+            let texto = ahora.toLocaleDateString('es-ES', opciones);
+            document.getElementById('reloj').textContent = texto.toUpperCase();
+        }
+        setInterval(actualizarReloj, 1000);
+        actualizarReloj();
+
+        // Carrusel
+        let indice = 0;
+        const slides = document.getElementById('carrusel');
+        setInterval(() => {
+            indice = (indice + 1) % 3;
+            slides.style.transform = `translateX(-${(indice * 100) / 3}%)`;
+        }, 5000);
+    </script>
+</body>
+</html>
